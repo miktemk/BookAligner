@@ -1,0 +1,57 @@
+﻿<Window x:Class="BookAligner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        mc:Ignorable="d ignore"
+        Height="600"
+        Width="1300"
+        Title="MVVM Light Application"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:myBehaviors="clr-namespace:BookAligner.Behaviors"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    
+    <Window.Resources>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveAlignmentDataCommand}"></KeyBinding>
+        <KeyBinding Gesture="Ctrl+R" Command="{Binding ReloadAlignmentDataCommand}"></KeyBinding>
+        <KeyBinding Key="M" Command="{Binding AddManualCommand}"></KeyBinding>
+        <KeyBinding Key="R" Command="{Binding AddRegexCommand}"></KeyBinding>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <avalonEdit:TextEditor
+            Padding="10"
+            FontFamily="Arial"
+            FontSize="14pt"
+            Document="{Binding CodeDocument1}"
+            IsEnabled="True"
+            IsReadOnly="True"
+            WordWrap="True"
+            ShowLineNumbers="True"
+            myBehaviors:AEBehaviors.HighlightWord="{Binding Highlight1, Mode=TwoWay}"
+            myBehaviors:AEBehaviors.WordSingleClicked="{Binding SelectionChanged1Command}"
+            myBehaviors:AEBehaviors.EmphasizedWords="{Binding EmphasizedWords1}"
+        ></avalonEdit:TextEditor>
+        <avalonEdit:TextEditor
+            Grid.Column="1"
+            Padding="10"
+            FontFamily="Arial"
+            FontSize="14pt"
+            Document="{Binding CodeDocument2}"
+            IsEnabled="True"
+            IsReadOnly="True"
+            WordWrap="True"
+            myBehaviors:AEBehaviors.HighlightWord="{Binding Highlight2, Mode=TwoWay}"
+            myBehaviors:AEBehaviors.EmphasizedWords="{Binding EmphasizedWords2}"
+        ></avalonEdit:TextEditor>
+
+    </Grid>
+</Window>
